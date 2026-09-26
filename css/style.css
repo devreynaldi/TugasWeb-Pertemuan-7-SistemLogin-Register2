@@ -1,0 +1,243 @@
+/* =====================================================
+   Tugas Rutin 7 — Sistem Login/Register (dark theme)
+   ===================================================== */
+
+:root {
+    --bg:        #0d1117;
+    --card:      #151a24;
+    --border:    #262d3d;
+    --text:      #e6e9f0;
+    --muted:     #8b93a7;
+    --primary:       #6c5ce7;
+    --primary-dark:  #5a4bd1;
+    --primary-light: #a29bfe;
+    --success-bg:   rgba(46, 204, 113, .12);
+    --success-text: #2ecc71;
+    --error-bg:     rgba(231, 76, 60, .12);
+    --error-text:   #ff6b5e;
+    --radius:    12px;
+    --radius-sm: 8px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Segoe UI', 'Inter', system-ui, sans-serif;
+    background: var(--bg);
+    background-image:
+        radial-gradient(900px 400px at 85% -10%, rgba(108, 92, 231, .18), transparent 60%),
+        radial-gradient(700px 350px at -10% 110%, rgba(46, 204, 113, .08), transparent 60%);
+    background-attachment: fixed;
+    color: var(--text);
+    min-height: 100vh;
+    line-height: 1.6;
+}
+
+a { color: var(--primary-light); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ---------- Layout halaman login/register ---------- */
+.auth-wrapper {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 16px;
+}
+
+.card {
+    width: 100%;
+    max-width: 440px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 36px 32px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, .45);
+}
+
+.card-header { text-align: center; margin-bottom: 24px; }
+.logo { font-size: 40px; margin-bottom: 8px; }
+.card-header h1 { font-size: 1.5rem; }
+.card-header p  { color: var(--muted); font-size: .9rem; }
+
+/* ---------- Form ---------- */
+.form-group { margin-bottom: 18px; }
+
+.form-group label {
+    display: block;
+    font-size: .85rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px 14px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    color: var(--text);
+    font-size: .95rem;
+    font-family: inherit;
+    transition: border-color .2s, box-shadow .2s;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(108, 92, 231, .22);
+}
+
+.field-error {
+    display: block;
+    color: var(--error-text);
+    font-size: .8rem;
+    margin-top: 5px;
+}
+
+/* ---------- Checkbox Remember Me ---------- */
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 18px;
+    font-size: .9rem;
+    color: var(--muted);
+    cursor: pointer;
+    user-select: none;
+}
+.checkbox-group input { accent-color: var(--primary); width: 16px; height: 16px; cursor: pointer; }
+
+/* ---------- Button ---------- */
+.btn {
+    display: inline-block;
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 12px 20px;
+    font-size: .95rem;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background .2s, transform .1s;
+}
+.btn:active { transform: translateY(1px); }
+.btn-primary { background: var(--primary); color: #fff; }
+.btn-primary:hover { background: var(--primary-dark); }
+.btn-block { width: 100%; }
+
+/* ---------- Alert (pesan error & sukses) ---------- */
+.alert {
+    padding: 12px 16px;
+    border-radius: var(--radius-sm);
+    font-size: .9rem;
+    margin-bottom: 18px;
+    border: 1px solid transparent;
+}
+.alert.success { background: var(--success-bg); color: var(--success-text); border-color: rgba(46,204,113,.35); }
+.alert.error   { background: var(--error-bg);   color: var(--error-text);   border-color: rgba(231,76,60,.35); }
+
+.auth-link { text-align: center; margin-top: 20px; font-size: .9rem; color: var(--muted); }
+
+/* ---------- Navbar ---------- */
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 32px;
+    background: rgba(21, 26, 36, .85);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    backdrop-filter: blur(8px);
+    z-index: 10;
+}
+.brand { font-weight: 700; font-size: 1.05rem; color: var(--text); }
+.brand:hover { text-decoration: none; color: var(--primary-light); }
+
+.nav-right { display: flex; align-items: center; gap: 18px; }
+.nav-user  { display: flex; align-items: center; gap: 8px; font-size: .9rem; color: var(--muted); }
+
+.nav-link {
+    color: var(--muted);
+    font-size: .9rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+}
+.nav-link:hover { color: var(--primary-light); text-decoration: none; }
+.nav-link.logout:hover { color: var(--error-text); }
+.inline-form { display: inline; }
+
+/* ---------- Dashboard ---------- */
+.container {
+    max-width: 860px;
+    margin: 32px auto;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.container .card { max-width: none; }
+
+.dashboard-hero { display: flex; align-items: center; gap: 24px; }
+
+.avatar {
+    width: 72px;
+    height: 72px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #fff;
+}
+.avatar-sm {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: .75rem;
+    font-weight: 700;
+    color: #fff;
+}
+
+.card-title { font-size: 1.1rem; margin-bottom: 14px; }
+.muted { color: var(--muted); }
+.text-muted { color: var(--muted); }
+.divider { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+
+.data-table { width: 100%; border-collapse: collapse; font-size: .95rem; }
+.data-table th, .data-table td {
+    text-align: left;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border);
+}
+.data-table th { color: var(--muted); font-weight: 600; width: 40%; }
+.data-table tr:last-child th, .data-table tr:last-child td { border-bottom: none; }
+
+.info-list { margin-left: 18px; color: var(--muted); font-size: .92rem; }
+.info-list li { margin-bottom: 6px; }
+
+code {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: .82em;
+    color: var(--primary-light);
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 520px) {
+    .card { padding: 28px 20px; }
+    .navbar { padding: 12px 16px; }
+    .dashboard-hero { flex-direction: column; text-align: center; }
+    .nav-user span:not(.avatar-sm) { display: none; }
+}
